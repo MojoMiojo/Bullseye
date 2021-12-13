@@ -25,16 +25,16 @@ class BullseyeTests: XCTestCase {
 	func testPositiveScore() throws {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
-		let guess : Int = gameModel.target + 5;
-		let score: Int = gameModel.points(sliderPoints: guess);
+		let guess = gameModel.target + 5;
+		let score = gameModel.points(sliderPoints: guess);
 		XCTAssertEqual(score, 95)
 	}
 	
 	func testNegativeScore() throws {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
-		let guess : Int = gameModel.target - 5;
-		let score: Int = gameModel.points(sliderPoints: guess);
+		let guess = gameModel.target - 5;
+		let score = gameModel.points(sliderPoints: guess);
 		XCTAssertEqual(score, 95)
 	}
 	
