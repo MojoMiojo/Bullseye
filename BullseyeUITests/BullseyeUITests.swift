@@ -2,7 +2,7 @@
 //  BullseyeUITests.swift
 //  BullseyeUITests
 //
-//  Created by Studio Sol on 07/12/21.
+//  Created by Mozart Sousa on 07/12/21.
 //
 
 import XCTest
