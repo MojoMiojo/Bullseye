@@ -16,6 +16,16 @@ struct ContentView: View {
 	var body: some View {
 		
 		VStack{
+			bullseyeTextAndTarget;
+			sliderHStack;
+			hitMeButton;
+		}//end VStack
+		
+	}//end bodyView
+	
+	///Bullseye texts
+	var bullseyeTextAndTarget : some View{
+		VStack{
 			Text("🎯🎯🎯\nPut the BullSEye as close as you can to")
 				.bold()
 				.font(.footnote)
@@ -27,35 +37,40 @@ struct ContentView: View {
 				.fontWeight(.black)
 				.font(.largeTitle)
 				.kerning(-1)
+		}
+	}//end bullseyeTextAndTarget
+	
+	/// HStack 1 to 100 slider
+	var sliderHStack : some View{
+		
+		HStack {
+			Text("1")
+				.bold()
+				.font(.headline)
+			Slider(value: $sliderPosition, in: 1.0...100.0)
+			Text("100")
+				.bold()
+				.font(.headline)
+		}
+	}//end sliderHStack
+	
+	///Build a button that active an alert
+	var hitMeButton : some View{
+		Button(action: {
+			isAlertVisible = true;
+		}) {
+			Text("Hit me")
+		}
+		.alert(isPresented: $isAlertVisible, content: {
+			let roundedValue = Int(sliderPosition.rounded())
 			
-			// 1 to 100 slider
-			HStack {
-				Text("1")
-					.bold()
-					.font(.headline)
-				Slider(value: $sliderPosition, in: 1.0...100.0)
-				Text("100")
-					.bold()
-					.font(.headline)
-			}
-			
-			//Hit me button
-			Button(action: {
-				isAlertVisible = true;
-			}) {
-				Text("Hit me")
-			}
-			.alert(isPresented: $isAlertVisible, content: {
-				let roundedValue = Int(sliderPosition.rounded())
-				
-				return Alert(title: Text("Hello there"),
-										 message: Text("The slider's value is \(roundedValue).\n" +
-																	 "You scored \(gameModel.points(sliderPoints: roundedValue )) points this round."),
-										 dismissButton: .default(Text("Awesome!")))
-			})//end button
-			
-		}//end VStack
-	}//end body
+			return Alert(title: Text("Hello there"),
+									 message: Text("The slider's value is \(roundedValue).\n" +
+																 "You scored \(gameModel.points(sliderPoints: roundedValue )) points this round."),
+									 dismissButton: .default(Text("Awesome!")))
+		})
+	}// end hitMeButton
+	
 	
 }//end ContentView
 
