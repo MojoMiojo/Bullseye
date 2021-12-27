@@ -32,12 +32,14 @@ struct ContentView: View {
     var bullseyeTextAndTarget : some View{
         VStack{
             Text("🎯🎯🎯\nPut the BullSEye as close as you can to".uppercased())
+                .foregroundColor(Color("TextColor"))
                 .bold()
                 .font(.footnote)
                 .kerning(2.0)
                 .lineSpacing(4.0)
                 .multilineTextAlignment(.center)
             Text(String(gameModel.target))
+                .foregroundColor(Color("TextColor"))
                 .fontWeight(.black)
                 .font(.largeTitle)
                 .kerning(-1)
@@ -49,10 +51,12 @@ struct ContentView: View {
         
         HStack {
             Text("1")
+                .foregroundColor(Color("TextColor"))
                 .bold()
                 .font(.headline)
             Slider(value: $sliderPosition, in: 1.0...100.0)
             Text("100")
+                .foregroundColor(Color("TextColor"))
                 .bold()
                 .font(.headline)
         }
