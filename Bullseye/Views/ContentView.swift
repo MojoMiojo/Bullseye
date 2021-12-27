@@ -15,12 +15,16 @@ struct ContentView: View {
     
     var body: some View {
         
-        VStack{
-            bullseyeTextAndTarget;
-            sliderHStack;
-            hitMeButton;
-        }//end VStack
-        .padding()
+        ZStack {
+            Color("BackgroundColor")
+                .ignoresSafeArea(.all)
+            VStack{
+                bullseyeTextAndTarget;
+                sliderHStack;
+                hitMeButton;
+            }//end VStack
+            .padding()
+        }//end ZStack backgroundColor
         
     }//end bodyView
     
@@ -64,7 +68,11 @@ struct ContentView: View {
                 .font(.title3)
         }
         .padding(20)
-        .background(Color.blue)
+        .background(
+            ZStack {
+                Color("ButtonColor")
+                LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.3), Color.clear]), startPoint: .top, endPoint: .bottom)
+            })
         .foregroundColor(Color.white)
         .cornerRadius(21)
         .alert(isPresented: $isAlertVisible, content: {
