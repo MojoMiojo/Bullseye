@@ -70,7 +70,7 @@ struct ContentView: View {
             Text("Hit me".uppercased())
                 .bold()
                 .font(.title3)
-        }
+        }//end button
         .padding(20)
         .background(
             ZStack {
@@ -79,6 +79,10 @@ struct ContentView: View {
             })
         .foregroundColor(Color.white)
         .cornerRadius(21)
+        .overlay(
+            RoundedRectangle(cornerRadius: 21)
+                .strokeBorder(Color.white, lineWidth: 2)
+        )
         .alert(isPresented: $isAlertVisible, content: {
             let roundedValue = Int(sliderPosition.rounded())
             
@@ -86,9 +90,8 @@ struct ContentView: View {
                          message: Text("The slider's value is \(roundedValue).\n" +
                                        "You scored \(gameModel.points(sliderPoints: roundedValue )) points this round."),
                          dismissButton: .default(Text("Awesome!")))
-        })
+        })//end alert
     }// end hitMeButton
-    
     
 }//end ContentView
 
