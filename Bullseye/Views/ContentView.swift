@@ -16,8 +16,7 @@ struct ContentView: View {
     var body: some View {
         
         ZStack {
-            Color("BackgroundColor")
-                .ignoresSafeArea(.all)
+            BackgroundView(game: $gameModel)
             VStack{
                 bullseyeTextAndTarget;
                 sliderHStack;
@@ -51,14 +50,16 @@ struct ContentView: View {
         
         HStack {
             Text("1")
-                .foregroundColor(Color("TextColor"))
-                .bold()
                 .font(.headline)
+                .bold()
+                .frame(width: 35)
+                .foregroundColor(Color("TextColor"))
             Slider(value: $sliderPosition, in: 1.0...100.0)
             Text("100")
                 .foregroundColor(Color("TextColor"))
                 .bold()
                 .font(.headline)
+                .frame(width: 35)
         }
     }//end sliderHStack
     
@@ -75,7 +76,10 @@ struct ContentView: View {
         .background(
             ZStack {
                 Color("ButtonColor")
-                LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.3), Color.clear]), startPoint: .top, endPoint: .bottom)
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.white.opacity(0.3), Color.clear]),
+                    startPoint: .top,
+                    endPoint: .bottom)
             })
         .foregroundColor(Color.white)
         .cornerRadius(21)
@@ -83,14 +87,20 @@ struct ContentView: View {
             RoundedRectangle(cornerRadius: 21)
                 .strokeBorder(Color.white, lineWidth: 2)
         )
-        .alert(isPresented: $isAlertVisible, content: {
-            let roundedValue = Int(sliderPosition.rounded())
-            
-            return Alert(title: Text("Hello there"),
-                         message: Text("The slider's value is \(roundedValue).\n" +
-                                       "You scored \(gameModel.points(sliderPoints: roundedValue )) points this round."),
-                         dismissButton: .default(Text("Awesome!")))
-        })//end alert
+        .alert(
+            isPresented: $isAlertVisible,
+            content: {
+                let roundedValue = Int(sliderPosition.rounded())
+                let points = gameModel.points(sliderPoints: roundedValue)
+                return Alert(
+                    title: Text("Hello there"),
+                    message: Text("The slider's value is \(roundedValue).\n" + "You scored \(points) points this round."),
+                    dismissButton: .default(Text("Awesome!")){
+                        gameModel.startNewRound(points: points)
+                    }
+                )
+            }
+        )//end .alert
     }// end hitMeButton
     
 }//end ContentView
